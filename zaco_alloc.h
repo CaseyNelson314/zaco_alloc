@@ -11,9 +11,9 @@
 #include <stdint.h>
 
 /**
- * @brief unfreeable memory allocator
+ * @brief Allocator assuming that it is not released.
  * @param size alloc size
- * @return allocated memory pointer
+ * @return allocated memory
  */
 void* zaco_malloc(size_t size)
 {
