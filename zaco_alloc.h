@@ -20,7 +20,9 @@ void* zaco_malloc(size_t size)
     static void* head;
     static void* curr;
 
-    if (!head || (uint8_t*)curr - (uint8_t*)head + size > ZACO_MALLOC_CAPACITY)
+    assert(size <= ZACO_MALLOC_CAPACITY);
+
+    if (!head || (uint8_t*)curr + size >= (uint8_t*)head + ZACO_MALLOC_CAPACITY)
     {
         void* p = malloc(ZACO_MALLOC_CAPACITY);
         if (p)
@@ -34,7 +36,11 @@ void* zaco_malloc(size_t size)
         }
     }
 
-    return curr;
+    void* p = curr;
+
+    curr = (uint8_t*)curr + size;
+
+    return p;
 }
 
 #endif
